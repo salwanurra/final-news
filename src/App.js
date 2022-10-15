@@ -1,5 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import News from "./pages/homePage/News";
+import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AnimatedRoutes from "./routes/AnimatedRoutes";
 
