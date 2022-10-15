@@ -19,8 +19,8 @@ function Indonesia() {
   };
 
   const dispatch = useDispatch();
-  const {data} = useSelector(newsSelector)
-  console.log(data)
+  const { news } = useSelector(newsSelector)
+
   useEffect(() => {
     dispatch(getIndonesiaNews());
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,12 +33,12 @@ function Indonesia() {
         exit="out"
         variants={pageVariants}
       >
-        <div className="grid grid-cols-3 my-4">
-          {/* {getIndonesiaNews.map((item, index) => (
+        <div className="grid grid-cols-3 gap-4 mt-5 w-11/12 mx-auto">
+          {news?.articles?.map((item, index) => (
             <div key={index}>
+              <Card value={item}/>
             </div>
-          ))} */}
-          <Card />
+          ))}
         </div>
             
       </motion.div>

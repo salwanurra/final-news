@@ -5,7 +5,7 @@ export const getIndonesiaNews = createAsyncThunk("news/indonesia", async ()=> {
     try {
         const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=id&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
         console.log(response)
-        return response;
+        return response.data;
     } catch (error) {
         throw(error);
     }
