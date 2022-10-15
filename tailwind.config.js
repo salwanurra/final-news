@@ -18,6 +18,8 @@ module.exports = {
         'github-another-grey': '#c9d1d9',
         'github-other-blue': '#58a6ff',
         'search' : '#0d1117',
+        'blue': '#195A94',
+        'light-grey': '#747474',
         'github-border' : '#30363d',
         'news-yellow': '#ffb926',
       
@@ -54,5 +56,7 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 }

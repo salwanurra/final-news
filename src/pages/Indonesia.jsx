@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { motion } from "framer-motion";
+import Card from "../components/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { getIndonesiaNews, newsSelector } from "../store/news/NewsSlice";
 function Indonesia() {
   const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
   const pageVariants = {
@@ -14,6 +17,14 @@ function Indonesia() {
       transition: { duration: 0.5, ...transition },
     },
   };
+
+  const dispatch = useDispatch();
+  const { news } = useSelector(newsSelector)
+
+  useEffect(() => {
+    dispatch(getIndonesiaNews());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <>
       <motion.div
@@ -22,6 +33,13 @@ function Indonesia() {
         exit="out"
         variants={pageVariants}
       >
+        <div className="grid grid-cols-3 gap-4 mt-5 w-11/12 mx-auto">
+          {news?.articles?.map((item, index) => (
+            <div key={index}>
+              <Card value={item}/>
+            </div>
+          ))}
+        </div>
             
       </motion.div>
     </>

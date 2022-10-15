@@ -1,16 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios';
 
-export const news = createAsyncThunk("news", async ()=> {
+export const getIndonesiaNews = createAsyncThunk("news/indonesia", async ()=> {
     try {
-        // const response = await login(username, password);
-        // return response;
+        const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=id&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
+        console.log(response)
+        return response.data;
     } catch (error) {
         throw(error);
     }
 })
 
 const initialState = {
-    data: null,
+    news: null,
     loading: false,
     isError: null,
 }
@@ -21,25 +23,23 @@ const newsSlice = createSlice({
     reducers: {
     },
     extraReducers: {
-        [news.pending]: (state) => {
+        [getIndonesiaNews.pending]: (state) => {
             state.loading = true;
-            state.user = null;
+            state.news = null;
             state.isError = null;
         },
-        [news.fulfilled]: (state, action) => {
-            //   console.log(state,'state')
-            //   console.log(action,'action')
-            const {password} = action.payload;
+        [getIndonesiaNews.fulfilled]: (state, {payload}) => {
             state.loading = false;
-            state.user = {password};
+            state.news = payload;
             state.isError = null;
         },
-        [news.rejected]: (state, action) => {
+        [getIndonesiaNews.rejected]: (state) => {
             state.loading = false;
-            state.user = null;
-            state.isError = action.error.message;
+            state.news = null;
+            state.isError = true;
         },
     }
 })
 
+export const newsSelector = state => state.news
 export default newsSlice.reducer;
