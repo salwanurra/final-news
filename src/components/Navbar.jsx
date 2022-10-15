@@ -22,9 +22,9 @@ function Navbar({ NavProp }) {
           Indonesia
         </NavLink>
         <NavLink
-          to={"/Economy"}
+          to={"/economy"}
           className={
-            path === "/Economy"
+            path === "/economy"
               ? "text-white border-b-2 border-white py-1 "
               : "text-white"
           }
@@ -32,9 +32,9 @@ function Navbar({ NavProp }) {
           Economy
         </NavLink>
         <NavLink
-          to={"/Programming"}
+          to={"/programming"}
           className={
-            path === "/Programming"
+            path === "/programming"
               ? "text-white border-b-2 border-white py-1 "
               : "text-white"
           }
@@ -42,9 +42,9 @@ function Navbar({ NavProp }) {
           Programming
         </NavLink>
         <NavLink
-          to={"/Covid"}
+          to={"/covid"}
           className={
-            path === "/Covid"
+            path === "/covid"
               ? "text-white border-b-2 border-white py-1 "
               : "text-white"
           }
@@ -52,9 +52,9 @@ function Navbar({ NavProp }) {
           COVID-19
         </NavLink>
         <NavLink
-          to={"/Saved"}
+          to={"/saved"}
           className={
-            path === "/Saved"
+            path === "/saved"
               ? "text-white border-b-2 border-white py-1"
               : "text-white"
           }
@@ -62,15 +62,19 @@ function Navbar({ NavProp }) {
           Saved
         </NavLink>
         <div className="search">
-          <input
-            className="ml-64 px-1 text-xs rounded-sm w-28 h-6"
-            placeholder="Search.."
-          />
+          <form action="/" method="GET">
+            <input
+              className="ml-64 px-1 text-xs rounded-sm w-28 h-6"
+              placeholder="Search.."
+              name="search"
+              type="search"
+            />
+            <Button
+              text="Cari Berita"
+              prop="text-sm text-black w-20 h-6 bg-news-yellow align-right"
+            />
+          </form>
         </div>
-        <Button
-          text="Cari Berita"
-          prop="text-sm text-black w-20 h-6 bg-news-yellow align-right"
-        />
       </nav>
     </>
   );

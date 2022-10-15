@@ -13,11 +13,11 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence exitBeforeEnter initial={false}>
       <Routes location={location} key={location.pathname}>
-        <Route path="/Covid" element={<Covid/>} />
-        <Route path="/Economy" element={<Economy/>}/>
+        <Route path="/covid" element={<Covid/>} />
+        <Route path="/economy" element={<Economy/>}/>
         <Route path="/" element={<Indonesia/>}/>
-        <Route path="/Programming" element={<Programming/>}/>
-        <Route path="/Saved" element={<Saved/>}/>
+        <Route path="/programming" element={<Programming/>}/>
+        <Route path="/saved" element={<Saved/>}/>
       </Routes>
     </AnimatePresence>
   );

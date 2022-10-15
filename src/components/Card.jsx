@@ -11,8 +11,9 @@ function Card({ value }) {
       <hr className="my-4 border-zinc-400" />
       <div className="flex justify-between items-center">
         <p className="text-light-grey font-medium">{value.source?.name}</p>
-        <button className="rounded-md bg-blue text-white p-3">Read More</button>
-
+        <a href={value.url}>
+          <button className="rounded-md bg-blue text-white text-[14px] font-medium p-3">Read More</button>
+        </a>
       </div>
     </div>
     
