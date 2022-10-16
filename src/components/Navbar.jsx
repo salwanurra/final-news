@@ -2,35 +2,36 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Button from "./Button";
+
+
+
 function Navbar({ NavProp }) {
   const location = useLocation();
   const [path, setPath] = useState(null);
+
+
+
   useEffect(() => {
     setPath(location.pathname);
+
   }, [location]);
+
+
   return (
     <>
       <nav className={NavProp}>
         <NavLink
+          exact={true}
           to={"/"}
           className={
-            path === "/"
+            path === "/" 
               ? "text-white border-b-2 border-white py-1 "
               : "text-white"
           }
         >
           Indonesia
         </NavLink>
-        <NavLink
-          to={"/economy"}
-          className={
-            path === "/economy"
-              ? "text-white border-b-2 border-white py-1 "
-              : "text-white"
-          }
-        >
-          Economy
-        </NavLink>
+    
         <NavLink
           to={"/programming"}
           className={
@@ -62,7 +63,7 @@ function Navbar({ NavProp }) {
           Saved
         </NavLink>
         <div className="search">
-          <form action="/" method="GET">
+          <form action="/search" method="GET">
             <input
               className="ml-64 px-1 text-xs rounded-sm w-28 h-6"
               placeholder="Search.."
@@ -70,6 +71,7 @@ function Navbar({ NavProp }) {
               type="search"
             />
             <Button
+    
               text="Cari Berita"
               prop="text-sm text-black w-20 h-6 bg-news-yellow align-right"
             />
