@@ -23,12 +23,26 @@ function Programming() {
   };
 
   const dispatch = useDispatch();
-  const { news, loading } = useSelector(newsSelector);
+  const { news, loading, isError } = useSelector(newsSelector);
   const queryParams = new URLSearchParams(window.location.search);
   let search = queryParams.get("search");
 
   const [title, setTitle] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const onError = (
+    <div className="mt-32 text-2xl text-center">
+      {" "}
+      404! Money Not Found <br /> Server down or Request limit reached (100 / 24
+      hour)
+    </div>
+  );
+
+  const onLoading = (
+    <div className="mt-32  justify-center flex items-center">
+      {" "}
+      <Loading />{" "}
+    </div>
+  );
 
   useEffect(() => {
     if (search) {
@@ -37,13 +51,7 @@ function Programming() {
       dispatch(getProgrammingNews());
       setTitle("Programming ");
     }
-    if (!loading){
-      console.log("aw", loading)
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
-    }
+
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -57,23 +65,19 @@ function Programming() {
         exit="out"
         variants={pageVariants}
       >
-        {isLoading ? (
-          <div className="absolute justify-center items-center flex h-screen">{<Loading />}</div>
-        ) : (
-          <>
-            <h1 className="text-center my-5 font-bold">
-              {search} {title}News
-            </h1>
-            <hr className="mb-5 border-grey" />
-            <div className="grid grid-cols-3 gap-4 w-11/12 mx-auto">
-              {news?.articles?.map((item, index) => (
-                <div key={index}>
-                  <Card value={item} />
-                </div>
-              ))}
+        <h1 className="text-center my-5 font-bold">
+          {search} {title}News
+        </h1>
+        {loading && onLoading}
+        {(!loading, isError && onError)}
+        <hr className="mb-5 border-grey" />
+        <div className="grid grid-cols-3 gap-4 w-11/12 mx-auto">
+          {news?.articles?.map((item, index) => (
+            <div key={index}>
+              <Card value={item} />
             </div>
-          </>
-        )}
+          ))}
+        </div>
       </motion.div>
     </>
   );
