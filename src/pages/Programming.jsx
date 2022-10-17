@@ -12,7 +12,6 @@ import {
 import { addNews, checkData, deleteNews } from "../store/saved/SaveSlice";
 
 import Loading from "../components/Loading";
-import { json } from "react-router-dom";
 
 function Programming() {
   const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
@@ -53,12 +52,12 @@ function Programming() {
   const dynamicButton = (title) => {
     let prop = "";
     const data = JSON.parse(localStorage.getItem("saved"));
-    if (data!==null){
+    if (data !== null) {
       for (let i = 0; i < data.length; i++) {
         if (data[i].title === title) {
           JSON.parse(localStorage.getItem("saved"));
           prop = "Unsave";
-  
+
           break;
         } else {
           JSON.parse(localStorage.getItem("saved"));
@@ -68,13 +67,9 @@ function Programming() {
       if (data.length <= 0) {
         prop = "Save";
       }
-    }else{
+    } else {
       prop = "Save";
     }
-  
-    
-   
-   
 
     return prop;
   };
@@ -119,7 +114,6 @@ function Programming() {
   };
 
   useEffect(() => {
- 
     if (search) {
       dispatch(getFindNews({ search }));
     } else {
