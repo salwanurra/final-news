@@ -8,6 +8,12 @@ module.exports = {
       fontFamily: {
         'google': ['Poppins', 'sans-serif'] 
       },
+      fontSize: {
+        'xsm': '0.72rem',
+        'xxs': '0.65rem',
+      
+      },
+    
       colors: {
         'github-blue': '#161b22',
         'github-darker-blue': '#0d1117',
@@ -25,11 +31,15 @@ module.exports = {
       
       },
       screens: {
-        'm640': {'min': '640px', 'max': '767px'},
+        'm640': {'min': '640px', 'max': '739px'},
+        'm740': {'min': '740px', 'max': '909px'},
+        'm910': {'min': '910px', 'max': '1023px'},
     
         'm1024': {'min': '1024px', 'max': '1149px'},
 
         'm1150': {'min': '1150px', 'max': '1279px'},
+
+        'm1204': {'min': '1204px', 'max': '1279px'},
  
         'm1280': {'min': '1280px', 'max': '1399px'},
 

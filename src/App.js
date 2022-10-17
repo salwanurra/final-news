@@ -8,7 +8,7 @@ function App() {
       <div className="parent bg-white h-screen">
         <Router>
           <div>
-            <Navbar NavProp="bg-github-blue flex px-16 justify-center items-center space-x-4 h-12" />
+            <Navbar NavProp="bg-github-blue flex px-8 justify-center items-center space-x-4 h-12" />
           </div>
           <div className="justify-center flex items-center ">
             <AnimatedRoutes></AnimatedRoutes>
