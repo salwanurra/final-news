@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useCallback, useRef } from "react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Card from "../components/Card";
@@ -8,6 +8,9 @@ import {
   getProgrammingNews,
   newsSelector,
 } from "../store/news/NewsSlice";
+
+import { addNews, checkData, deleteNews } from "../store/saved/SaveSlice";
+
 import Loading from "../components/Loading";
 
 function Programming() {
@@ -24,10 +27,49 @@ function Programming() {
 
   const dispatch = useDispatch();
   const { news, loading, isError } = useSelector(newsSelector);
+
   const queryParams = new URLSearchParams(window.location.search);
   let search = queryParams.get("search");
-
   const [title, setTitle] = useState("");
+  const [buttonState, setButtonState] = useState("");
+
+  const handleSave = (title, image, desc, source, detail, status) => {
+    let news = {
+      title,
+      image,
+      desc,
+      source,
+      detail,
+    };
+
+    dispatch(checkData(news));
+    dispatch(addNews(news));
+    dispatch(deleteNews({ title: title }));
+    setButtonState(
+      "Cuman Buat Trigger Perubahan data di button supaya useEffect nya ketrigger"
+    );
+  };
+
+  const dynamicButton = (title) => {
+    let prop = "";
+    const data = JSON.parse(localStorage.getItem("saved"));
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].title === title) {
+        JSON.parse(localStorage.getItem("saved"));
+        prop = "Unsave";
+
+        break;
+      } else {
+        JSON.parse(localStorage.getItem("saved"));
+        prop = "Save";
+      }
+    }
+    if (data.length <= 0) {
+      prop = "Save";
+    }
+
+    return prop;
+  };
 
   const onError = (
     <div className="mt-32 text-2xl text-center">
@@ -44,6 +86,30 @@ function Programming() {
     </div>
   );
 
+  const listNews = () => {
+    return news?.articles?.map((item, index) => (
+      <div key={index}>
+        <Card
+          title={item.title}
+          desc={item.description}
+          image={item.urlToImage}
+          source={item.sorce?.name}
+          detail={item.url}
+          saveText={dynamicButton(item.title)}
+          saveClick={() =>
+            handleSave(
+              item.title,
+              item.urlToImage,
+              item.description,
+              item.source?.name,
+              item.url
+            )
+          }
+        />
+      </div>
+    ));
+  };
+
   useEffect(() => {
     if (search) {
       dispatch(getFindNews({ search }));
@@ -51,10 +117,12 @@ function Programming() {
       dispatch(getProgrammingNews());
       setTitle("Programming ");
     }
-
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setButtonState("");
+  }, [buttonState]);
+
   console.log(news);
   return (
     <>
@@ -72,11 +140,7 @@ function Programming() {
         {(!loading, isError && onError)}
         <hr className="mb-5 border-grey" />
         <div className="grid grid-cols-3 gap-4 w-11/12 mx-auto">
-          {news?.articles?.map((item, index) => (
-            <div key={index}>
-              <Card value={item} />
-            </div>
-          ))}
+          {listNews()}
         </div>
       </motion.div>
     </>
