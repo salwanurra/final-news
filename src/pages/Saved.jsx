@@ -5,42 +5,45 @@ import Card from "../components/Card";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 
-
 import { deleteFromSaved } from "../store/saved/SaveSlice";
 function Saved() {
   const dispatch = useDispatch();
   const news = useSelector((state) => state.saved.saved);
   const handleUnsave = (title) => {
-    
     dispatch(deleteFromSaved({ title: title }));
-    
   };
 
   const checkdata = () => {
-
     const data = JSON.parse(localStorage.getItem("saved"));
-    if (data.length === 0) {
-      return <div className=" mt-24 text-2xl text-center ">No News saved yet</div>
-     
-    } 
-
-    
+    if (data !== null) {
+      if (data.length === 0) {
+        return (
+          <div className=" mt-24 text-2xl text-center ">No News saved yet</div>
+        );
+      }
+    } else {
+      return (
+        <div className=" mt-24 text-2xl text-center ">No News saved yet</div>
+      );
+    }
   };
 
   const listSaved = () => {
     const data = JSON.parse(localStorage.getItem("saved"));
-    if (data.length !== 0) {
-    return news.map((item) => (
-      <Card
-        saveClick={() => handleUnsave(item.title)}
-        title={item.title}
-        image={item.image}
-        source={item.source}
-        desc={item.desc}
-        detail={item.detail}
-        saveText="Unsave"
-      />
-    ));
+    if (data !== null) {
+      if (data.length !== 0) {
+        return news.map((item) => (
+          <Card
+            saveClick={() => handleUnsave(item.title)}
+            title={item.title}
+            image={item.image}
+            source={item.source}
+            desc={item.desc}
+            detail={item.detail}
+            saveText="Unsave"
+          />
+        ));
+      }
     }
   };
 
@@ -68,8 +71,7 @@ function Saved() {
         {checkdata()}
         <hr className="mb-5 border-grey" />
         <div className="grid grid-cols-3 gap-4 w-11/12 mx-auto">
-        {listSaved()}
-        
+          {listSaved()}
         </div>
       </motion.div>
     </>
