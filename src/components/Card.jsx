@@ -2,15 +2,15 @@ import React from "react";
 
 function Card({ saveText, saveClick, image, title, desc, source, detail }) {
   return (
-    <div className="p-4 rounded-md border border-2 ">
+    <div className="p-4 rounded-md border border-2">
       <img
         src={image|| "/news.jpg"}
         alt=""
-        className="rounded-md h-60 w-full object-cover"
+        className="rounded-md h-44 w-full object-cover"
       />
-      <h3 className="text-blue font-bold my-3 line-clamp-1">{title}</h3>
-      <div className="h-28">
-        <p className="text-light-grey line-clamp-4">
+      <h3 className="text-blue text-sm md:text-base lg:text-xl font-bold my-3 line-clamp-1">{title}</h3>
+      <div className="h-18">
+        <p className="text-light-grey text-xs lg:text-sm line-clamp-2 md:line-clamp-3 lg:line-clamp-4">
           {desc || title}
         </p>
       </div>
@@ -19,14 +19,14 @@ function Card({ saveText, saveClick, image, title, desc, source, detail }) {
         <p className="text-light-grey font-medium">{source}</p>
         <div className="space-x-2 flex">
           <a href={detail}>
-            <button className="rounded-md bg-blue text-white text-[14px] font-medium px-1 py-2  ">
+            <button className="rounded-md bg-blue text-white text-xs lg:text-sm font-medium p-2">
               Read More
             </button>
           </a>
           <div>
             <button
               onClick={saveClick}
-              className="rounded-md bg-blue text-white text-[14px]  font-medium px-1 py-2  "
+              className="rounded-md bg-blue text-white text-xs lg:text-sm font-medium p-2"
             >
               {saveText}
             </button>

@@ -31,9 +31,9 @@ module.exports = {
       
       },
       screens: {
-        'm640': {'min': '640px', 'max': '739px'},
-        'm740': {'min': '740px', 'max': '909px'},
-        'm910': {'min': '910px', 'max': '1023px'},
+        'm640': {'min': '640px', 'max': '767px'},
+        'm768': {'min': '768px', 'max': '991px'},
+        'm992': {'min': '992px', 'max': '1023px'},
     
         'm1024': {'min': '1024px', 'max': '1149px'},
 
