@@ -137,7 +137,7 @@ function Indonesia() {
         {loading && onLoading}
         {(!loading, isError && onError)}
         <hr className="mb-5 border-grey" />
-        <div className="grid grid-cols-3 gap-4 w-11/12 mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 mx-auto">
           {listNews()}
         </div>
             
