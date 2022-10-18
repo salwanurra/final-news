@@ -11,6 +11,15 @@ export const getIndonesiaNews = createAsyncThunk("news/indonesia", async ()=> {
     }
 });
 
+export const getProgrammingNews = createAsyncThunk("news/programming", async ()=> {
+    try {
+        const response = await axios.get(`https://newsapi.org/v2/everything?q=programming&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
+        return response.data;
+    } catch (error) {
+        throw(error);
+    }
+});
+
 export const getCovidNews = createAsyncThunk("news/covid", async ()=> {
     try {
         const response = await axios.get(`https://newsapi.org/v2/everything?q=covid-19&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
@@ -58,6 +67,22 @@ const newsSlice = createSlice({
             state.news = null;
             state.isError = true;
         },
+        [getProgrammingNews.pending]: (state) => {
+            state.loading = true;
+            state.news = null;
+            state.isError = null;
+        },
+        [getProgrammingNews.fulfilled]: (state, {payload}) => {
+            state.loading = false;
+            state.news = payload;
+            state.isError = null;
+        },
+        [getProgrammingNews.rejected]: (state) => {
+            state.loading = false;
+            state.news = null;
+            state.isError = true;
+        },
+
         [getCovidNews.pending]: (state) => {
             state.loading = true;
             state.news = null;

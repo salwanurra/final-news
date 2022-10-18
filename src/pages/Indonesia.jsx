@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { getFindNews, getIndonesiaNews, newsSelector } from "../store/news/NewsSlice";
+import { addNews, checkData, deleteNews } from "../store/saved/SaveSlice";
+
 import Loading from "../components/Loading";
 
 function Indonesia() {
@@ -19,37 +21,124 @@ function Indonesia() {
   };
 
   const dispatch = useDispatch();
-  const { news, loading } = useSelector(newsSelector)
+  const { news, loading, isError } = useSelector(newsSelector)
   const queryParams = new URLSearchParams(window.location.search);
   let search = queryParams.get("search");
 
+  const [title, setTitle] = useState("");
+  const [buttonState, setButtonState] = useState("");
+  const handleSave = (title, image, desc, source, detail) => {
+    let news = {
+      title,
+      image,
+      desc,
+      source,
+      detail,
+    };
+
+    dispatch(checkData(news));
+    dispatch(addNews(news));
+    dispatch(deleteNews({ title: title }));
+    setButtonState(
+      "Cuman Buat Trigger Perubahan data di button supaya useEffect nya ketrigger"
+    );
+  };
+
+  const dynamicButton = (title) => {
+    let prop = "";
+    const data = JSON.parse(localStorage.getItem("saved"));
+    if (data !== null) {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].title === title) {
+          JSON.parse(localStorage.getItem("saved"));
+          prop = "Unsave";
+
+          break;
+        } else {
+          JSON.parse(localStorage.getItem("saved"));
+          prop = "Save";
+        }
+      }
+      if (data.length <= 0) {
+        prop = "Save";
+      }
+    } else {
+      prop = "Save";
+    }
+
+    return prop;
+  };
+
+  const onError = (
+    <div className="mt-32 text-2xl text-center">
+      {" "}
+      404! Money Not Found <br /> Server down or Request limit reached (100 / 24
+      hour)
+    </div>
+  );
+
+  const onLoading = (
+    <div className="mt-32  justify-center flex items-center">
+      {" "}
+      <Loading />{" "}
+    </div>
+  );
+
+  const listNews = () => {
+    return news?.articles?.map((item, index) => (
+      <div key={index}>
+        <Card
+          title={item.title}
+          desc={item.description}
+          image={item.urlToImage}
+          source={item.sorce?.name}
+          detail={item.url}
+          saveText={dynamicButton(item.title)}
+          saveClick={() =>
+            handleSave(
+              item.title,
+              item.urlToImage,
+              item.description,
+              item.source?.name,
+              item.url
+            )
+          }
+        />
+      </div>
+    ));
+  };
 
   useEffect(() => {
     if (search) {
       dispatch(getFindNews({search}))
     } else {
       dispatch(getIndonesiaNews());
+      setTitle("Indonesia ");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   }, [])
-  console.log(news)
+
+  useEffect(() => {
+    setButtonState("");
+  }, [buttonState]);
+  
   return (
     <>
       <motion.div
+        className="h-screen"
         initial="initial"
         animate="in"
         exit="out"
         variants={pageVariants}
       >
-        <h1 className="text-center my-5 font-bold">{search} News</h1>
+         <h1 className="text-center my-5 font-bold">
+          {search} {title}News
+        </h1>
+        {loading && onLoading}
+        {(!loading, isError && onError)}
         <hr className="mb-5 border-grey" />
-          {loading && <Loading />}
         <div className="grid grid-cols-3 gap-4 w-11/12 mx-auto">
-          {news?.articles?.map((item, index) => (
-            <div key={index}>
-              <Card value={item}/>
-            </div>
-          ))}
+          {listNews()}
         </div>
             
       </motion.div>
