@@ -32,7 +32,7 @@ export const getCovidNews = createAsyncThunk("news/covid", async ()=> {
 
 export const getFindNews = createAsyncThunk("news/find", async ({search})=> {
     try {
-        const response = await axios.get(`https://newsapi.org/v2/everything?q=${search}&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
+        const response = await axios.get(`https://newsapi.org/v2/everything?qInTitle=${search}&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
         console.log('getFindNews', response)
         return response.data;
     } catch (error) {
