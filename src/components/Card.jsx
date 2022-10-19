@@ -9,14 +9,14 @@ function Card({ saveText, saveClick, image, title, desc, source, detail }) {
         className="rounded-md h-44 w-full object-cover"
       />
       <h3 className="text-blue text-sm md:text-base lg:text-lg font-bold my-3 line-clamp-1">{title}</h3>
-      <div className="h-8 md:h-12 lg:h-20">
+      <div className="h-14 md:h-20 lg:h-28 relative">
         <p className="text-light-grey text-xs lg:text-sm line-clamp-2 md:line-clamp-3 lg:line-clamp-4">
           {desc || title}
         </p>
+        <p className="text-light-grey font-medium absolute -bottom-2.5 right-0 text-sm">{source}</p>
       </div>
       <hr className="my-4 border-zinc-400" />
-      <div className="flex justify-between items-center">
-        <p className="text-light-grey font-medium">{source}</p>
+      <div className="flex justify-end items-center">
         <div className="space-x-2 flex">
           <div>
             <button

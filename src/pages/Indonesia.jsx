@@ -91,7 +91,7 @@ function Indonesia() {
           title={item.title}
           desc={item.description}
           image={item.urlToImage}
-          source={item.sorce?.name}
+          source={item.source?.name}
           detail={item.url}
           saveText={dynamicButton(item.title)}
           saveClick={() =>
