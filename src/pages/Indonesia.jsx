@@ -116,6 +116,7 @@ function Indonesia() {
       setTitle("Indonesia ");
     }
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -131,7 +132,7 @@ function Indonesia() {
         exit="out"
         variants={pageVariants}
       >
-         <h1 className="text-center my-5 font-bold">
+         <h1 className="text-center my-5 font-bold text-2xl">
           {search} {title}News
         </h1>
         {loading && onLoading}

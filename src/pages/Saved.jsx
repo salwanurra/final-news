@@ -1,6 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import Card from "../components/Card";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -68,10 +66,10 @@ function Saved() {
         exit="out"
         variants={pageVariants}
       >
-        <h1 className="text-center my-5 font-bold">Saved News</h1>
+        <h1 className="text-center my-5 font-bold text-2xl">Saved News</h1>
         {checkdata()}
         <hr className="mb-5 border-grey" />
-        <div className="grid grid-cols-3 gap-4 w-11/12 mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 mx-auto">
           {listSaved()}
         </div>
       </motion.div>

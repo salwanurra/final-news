@@ -1,15 +1,14 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Button from "./Button";
 
 
 
-function Navbar({ NavProp }) {
+
+function Navbar() {
   const location = useLocation();
   const [path, setPath] = useState(null);
-
-
+  const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
 
@@ -17,18 +16,99 @@ function Navbar({ NavProp }) {
 
   }, [location]);
 
-
   return (
     <>
-      <nav className={NavProp}>
+      <div className="flex p-3 justify-between md:justify-around items-center w-11/12 md:w-full mx-auto">
+        {/* mobile */}
+        <div className="block md:hidden">
+          <button onClick={() => setShowNav(true)}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
+
+        {/* laptop */}
+        <div className="hidden md:block">
+          <NavLink
+            exact={true}
+            to={"/"}
+            className={
+              path === "/" 
+                ? "text-white text-xs md:text-base mr-4 border-b-2 border-white py-1 "
+                : "text-white text-xs md:text-base mr-4"
+            }
+          >
+            Indonesia
+          </NavLink>
+      
+          <NavLink
+            to={"/programming"}
+            className={
+              path === "/programming"
+                ? "text-white text-xs md:text-base mr-4 border-b-2 border-white py-1 "
+                : "text-white text-xs md:text-base mr-4"
+            }
+          >
+            Programming
+          </NavLink>
+          <NavLink
+            to={"/covid"}
+            className={
+              path === "/covid"
+                ? "text-white text-xs md:text-base mr-4 border-b-2 border-white py-1 whitespace-nowrap"
+                : "text-white text-xs md:text-base mr-4 whitespace-nowrap"
+            }
+          >
+            COVID-19
+          </NavLink>
+          <NavLink
+            to={"/saved"}
+            className={
+              path === "/saved"
+                ? "text-white text-xs md:text-base mr-4 border-b-2 border-white py-1"
+                : "text-white text-xs md:text-base mr-4"
+            }
+          >
+            Saved
+          </NavLink>
+        </div>
+        <div className="search">
+          <form action="/search" method="GET">
+            <div className="relative">
+              <input
+                className="p-1 px-6 !text-white rounded-full !bg-slate-700 border !border-white w-full md:w-[300px]"
+                placeholder="Search..."
+                name="search"
+                type="search"
+                autoComplete="off"
+              />
+              <button type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6 absolute right-6 bottom-1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {showNav && (
+        <div className="flex flex-col fixed top-4 left-2 w-full max-w-[18rem] sm:max-w-xs bg-slate-700 rounded-lg shadow-lg p-6">
+          <button className="absolute top-5 right-5" onClick={() => setShowNav(false)}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-4 h-4">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         <NavLink
           exact={true}
           to={"/"}
           className={
             path === "/" 
-              ? "text-white m740:text-sm m640:text-xs border-b-2 border-white py-1 "
-              : "text-white m740:text-sm m640:text-xs"
+              ? "text-white text-sm md:text-base mr-4 text-sky-400 py-1 "
+              : "text-white text-sm md:text-base mr-4"
           }
+          onClick={() => setShowNav(false)}
         >
           Indonesia
         </NavLink>
@@ -37,9 +117,10 @@ function Navbar({ NavProp }) {
           to={"/programming"}
           className={
             path === "/programming"
-              ? "text-white m740:text-sm m640:text-xs border-b-2 border-white py-1 "
-              : "text-white m740:text-sm m640:text-xs"
+              ? "text-white text-sm md:text-base mr-4 mt-4 text-sky-400 py-1 "
+              : "text-white text-sm md:text-base mr-4 mt-4"
           }
+          onClick={() => setShowNav(false)}
         >
           Programming
         </NavLink>
@@ -47,9 +128,10 @@ function Navbar({ NavProp }) {
           to={"/covid"}
           className={
             path === "/covid"
-              ? "text-white m740:text-sm m640:text-xs border-b-2 border-white py-1 whitespace-nowrap"
-              : "text-white m740:text-sm m640:text-xs whitespace-nowrap"
+              ? "text-white text-sm md:text-base mr-4 mt-4 text-sky-400 py-1 whitespace-nowrap"
+              : "text-white text-sm md:text-base mr-4 mt-4 whitespace-nowrap"
           }
+          onClick={() => setShowNav(false)}
         >
           COVID-19
         </NavLink>
@@ -57,28 +139,15 @@ function Navbar({ NavProp }) {
           to={"/saved"}
           className={
             path === "/saved"
-              ? "text-white m740:text-sm m640:text-xs border-b-2 border-white py-1"
-              : "text-white m740:text-sm m640:text-xs"
+              ? "text-white text-sm md:text-base mr-4 mt-4 text-sky-400 py-1"
+              : "text-white text-sm md:text-base mr-4 mt-4"
           }
+          onClick={() => setShowNav(false)}
         >
           Saved
         </NavLink>
-        <div className="search">
-          <form action="/search" method="GET">
-            <input
-              className="m1024:ml-28 m640:text-xxs m1280:ml-64 m740:text-xxs m640:w-16 m910:ml-16 m740:ml-8 px-1 mt-1 text-xs rounded-sm m740:w-16 w-28 h-6 ml-28 text-xs"
-              placeholder="Search.."
-              name="search"
-              type="search"
-            />
-            <Button
-    
-              text="Cari Berita"
-              prop="text-sm  m740:w-20 m740:text-xxs m640:w-16 m640:text-xxs whitespace-nowrap    mx-2 text-black w-20 h-6 mt-1  bg-news-yellow align-right absolute text-xsm"
-            />
-          </form>
-        </div>
-      </nav>
+      </div>
+      )}
     </>
   );
 }
