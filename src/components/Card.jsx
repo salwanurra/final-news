@@ -8,7 +8,6 @@ function Card({ saveText, saveClick, image, title, desc, source, detail, toggle 
         alt=""
         className="rounded-md h-44 w-full object-cover"
       />
-<<<<<<< HEAD
       <h3 className="text-blue text-sm md:text-base lg:text-lg font-bold my-3 line-clamp-1">{title}</h3>
       <div className="h-14 md:h-20 lg:h-28 relative">
         <p className="text-light-grey text-xs lg:text-sm line-clamp-2 md:line-clamp-3 lg:line-clamp-4">
@@ -18,19 +17,6 @@ function Card({ saveText, saveClick, image, title, desc, source, detail, toggle 
       </div>
       <hr className="my-4 border-zinc-400" />
       <div className="flex justify-end items-center">
-=======
-      <h3 className="text-blue text-sm md:text-base lg:text-lg font-bold my-3 line-clamp-1">
-        {title}
-      </h3>
-      <div className="h-8 md:h-12 lg:h-24 relative">
-        <p className="text-light-grey text-xs lg:text-sm line-clamp-2 md:line-clamp-3 lg:line-clamp-4">
-          {desc || title}
-        </p>
-        <p className="text-light-grey font-medium relative top-24">{source}</p>
-      </div>
-      <hr className="my-4 border-zinc-400" />
-      <div className="flex justify-between items-center">
->>>>>>> 76c1866561f3184f9bca0628cd5bde8a75750a28
         <div className="space-x-2 flex">
           <div>
             <button
