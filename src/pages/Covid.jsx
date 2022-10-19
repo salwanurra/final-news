@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { getCovidNews, newsSelector} from "../store/news/NewsSlice";
+import { getCovidNews, newsSelector } from "../store/news/NewsSlice";
 
 import { addNews, checkData, deleteNews } from "../store/saved/SaveSlice";
 
@@ -22,7 +22,7 @@ function Covid() {
   };
 
   const dispatch = useDispatch();
-  const { news, loading, isError } = useSelector(newsSelector)
+  const { news, loading, isError } = useSelector(newsSelector);
 
   const [title, setTitle] = useState("");
   const [buttonState, setButtonState] = useState("");
@@ -50,19 +50,67 @@ function Covid() {
       for (let i = 0; i < data.length; i++) {
         if (data[i].title === title) {
           JSON.parse(localStorage.getItem("saved"));
-          prop = "Unsave";
+          prop = (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6"
+            >
+              <path d="M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM20.25 5.507v11.561L5.853 2.671c.15-.043.306-.075.467-.094a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93zM3.75 21V6.932l14.063 14.063L12 18.088l-7.165 3.583A.75.75 0 013.75 21z" />
+            </svg>
+          );
 
           break;
         } else {
           JSON.parse(localStorage.getItem("saved"));
-          prop = "Save";
+          prop = (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                fillRule="evenodd"
+                d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+                clipRule="evenodd"
+              />
+            </svg>
+          );
         }
       }
       if (data.length <= 0) {
-        prop = "Save";
+        prop = (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              fillRule="evenodd"
+              d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+              clipRule="evenodd"
+            />
+          </svg>
+        );
       }
     } else {
-      prop = "Save";
+      prop = (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            fillRule="evenodd"
+            d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+            clipRule="evenodd"
+          />
+        </svg>
+      );
     }
 
     return prop;
@@ -90,9 +138,9 @@ function Covid() {
           title={item.title}
           desc={item.description}
           image={item.urlToImage}
-          source={item.sorce?.name}
+          source={item.source?.name}
           detail={item.url}
-          saveText={dynamicButton(item.title)}
+          toggle={dynamicButton(item.title)}
           saveClick={() =>
             handleSave(
               item.title,
@@ -110,7 +158,7 @@ function Covid() {
   useEffect(() => {
     dispatch(getCovidNews());
     setTitle("Covid-19 ");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -126,9 +174,7 @@ function Covid() {
         exit="out"
         variants={pageVariants}
       >
-         <h1 className="text-center my-5 font-bold text-2xl">
-          {title}News
-        </h1>
+        <h1 className="text-center my-5 font-bold text-2xl">{title}News</h1>
         {loading && onLoading}
         {(!loading, isError && onError)}
         <hr className="mb-5 border-grey" />
