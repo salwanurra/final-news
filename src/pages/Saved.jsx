@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "../components/Card";
-import { Empty } from "antd"
+import { Empty } from "antd";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,15 +17,23 @@ function Saved() {
     if (data !== null) {
       if (data.length === 0) {
         return (
-          <div className="flex justify-center items-center h-4/5">
-            <Empty />
+          <div className="justify-center items-center mt-24">
+            <Empty style={{ fontSize: "0%" }} />
+            <div className="justify-center text-center items-center h-3/5">
+              {" "}
+              No News Saved
+            </div>
           </div>
         );
       }
     } else {
       return (
-        <div className="flex justify-center items-center h-4/5">
-          <Empty />
+        <div className="justify-center items-center mt-24">
+          <Empty style={{ fontSize: "0%" }} />
+          <div className="justify-center text-center items-center h-3/5">
+            {" "}
+            No News Saved
+          </div>
         </div>
       );
     }
@@ -46,11 +54,17 @@ function Saved() {
             toggle={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                fill="none"
                 viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-5 h-5"
               >
-                <path d="M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM20.25 5.507v11.561L5.853 2.671c.15-.043.306-.075.467-.094a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93zM3.75 21V6.932l14.063 14.063L12 18.088l-7.165 3.583A.75.75 0 013.75 21z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                />
               </svg>
             }
           />
@@ -80,9 +94,9 @@ function Saved() {
         exit="out"
         variants={pageVariants}
       >
-        <h1 className="text-center my-5 font-bold text-2xl">Saved News</h1>
-        {checkdata()}
+        <h1 className="text-center mt-5 font-bold text-lg">Saved News</h1>
         <hr className="mb-5 border-grey" />
+        {checkdata()}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 mx-auto">
           {listSaved()}
         </div>
