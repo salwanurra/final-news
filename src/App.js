@@ -1,6 +1,7 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AnimatedRoutes from "./routes/AnimatedRoutes";
+import 'antd/dist/antd.css'
 
 function App() {
   return (
