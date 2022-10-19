@@ -1,4 +1,4 @@
-import { React, useCallback, useRef } from "react";
+import React from "react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Card from "../components/Card";
@@ -120,6 +120,7 @@ function Programming() {
       dispatch(getProgrammingNews());
       setTitle("Programming ");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -136,13 +137,13 @@ function Programming() {
         exit="out"
         variants={pageVariants}
       >
-        <h1 className="text-center my-5 font-bold">
+        <h1 className="text-center my-5 font-bold text-2xl">
           {search} {title}News
         </h1>
         {loading && onLoading}
         {(!loading, isError && onError)}
         <hr className="mb-5 border-grey" />
-        <div className="grid grid-cols-3 gap-4 w-11/12 mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 mx-auto">
           {listNews()}
         </div>
       </motion.div>

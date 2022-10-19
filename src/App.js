@@ -5,12 +5,12 @@ import AnimatedRoutes from "./routes/AnimatedRoutes";
 function App() {
   return (
     <div className="App">
-      <div className="parent bg-white h-screen">
+      <div className="parent bg-white">
         <Router>
-          <div>
-            <Navbar NavProp="bg-github-blue flex px-8 justify-center items-center space-x-4 h-12" />
+          <div className="sticky top-0 bg-slate-800">
+            <Navbar />
           </div>
-          <div className="justify-center flex items-center ">
+          <div className="justify-center flex items-center">
             <AnimatedRoutes></AnimatedRoutes>
           </div>
         </Router>
