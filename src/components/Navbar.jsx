@@ -18,6 +18,7 @@ function Navbar() {
 
   return (
     <>
+    
       <div className="flex p-3 justify-between md:justify-around items-center w-11/12 md:w-full mx-auto">
         {/* mobile */}
         <div className="block md:hidden">
@@ -30,6 +31,7 @@ function Navbar() {
 
         {/* laptop */}
         <div className="hidden md:block">
+        
           <NavLink
             exact={true}
             to={"/"}
@@ -84,7 +86,7 @@ function Navbar() {
                 autoComplete="off"
               />
               <button type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6 absolute right-6 bottom-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-4 h-4 absolute right-6 bottom-1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
               </button>
