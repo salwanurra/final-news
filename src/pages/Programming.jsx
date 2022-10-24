@@ -1,16 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getFindNews,
-  getProgrammingNews,
-  newsSelector,
-} from "../store/news/NewsSlice";
-
+import { getFindNews, getProgrammingNews, newsSelector } from "../store/news/NewsSlice";
 import { addNews, checkData, deleteNews } from "../store/saved/SaveSlice";
-
+import Card from "../components/Card";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 
@@ -28,18 +22,18 @@ function Programming() {
 
   const dispatch = useDispatch();
   const { news, loading, isError } = useSelector(newsSelector);
-
   const queryParams = new URLSearchParams(window.location.search);
   let search = queryParams.get("search");
   const [title, setTitle] = useState("");
   const [buttonState, setButtonState] = useState("");
-  const handleSave = (title, image, desc, source, detail) => {
+  
+  const handleSave = (item) => {
     let news = {
-      title,
-      image,
-      desc,
-      source,
-      detail,
+      title: item.title,
+      urlToImage: item.urlToImage,
+      description: item.description,
+      source: item.source?.name,
+      url: item.url,
     };
 
     dispatch(checkData(news));
@@ -60,14 +54,12 @@ function Programming() {
           prop = (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
               fill="currentColor"
-              class="bi bi-bookmark-check-fill"
+              className="bi bi-bookmark-check-fill w-5 h-5"
               viewBox="0 0 16 16"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"
               />
             </svg>
@@ -79,10 +71,8 @@ function Programming() {
           prop = (
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="26"
-              height="26"
               fill="currentColor"
-              class="bi bi-bookmark-plus"
+              className="bi bi-bookmark-plus w-5 h-5"
               viewBox="0 0 16 16"
             >
               <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
@@ -95,10 +85,8 @@ function Programming() {
         prop = (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="26"
-            height="26"
             fill="currentColor"
-            class="bi bi-bookmark-plus"
+            className="bi bi-bookmark-plus w-5 h-5"
             viewBox="0 0 16 16"
           >
             <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
@@ -110,10 +98,8 @@ function Programming() {
       prop = (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="26"
-          height="26"
           fill="currentColor"
-          class="bi bi-bookmark-plus"
+          className="bi bi-bookmark-plus w-5 h-5"
           viewBox="0 0 16 16"
         >
           <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
@@ -129,21 +115,9 @@ function Programming() {
     return news?.articles?.map((item, index) => (
       <div key={index}>
         <Card
-          title={item.title}
-          desc={item.description}
-          image={item.urlToImage}
-          source={item.source?.name}
-          detail={item.url}
+          value={item}
           toggle={dynamicButton(item.title)}
-          saveClick={() =>
-            handleSave(
-              item.title,
-              item.urlToImage,
-              item.description,
-              item.source?.name,
-              item.url
-            )
-          }
+          saveClick={() => handleSave(item)}
         />
       </div>
     ));
@@ -163,7 +137,6 @@ function Programming() {
     setButtonState("");
   }, [buttonState]);
 
-  console.log(news);
   return (
     <>
       <motion.div

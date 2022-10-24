@@ -3,9 +3,20 @@ import Card from "../components/Card";
 import { Empty } from "antd";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-
 import { deleteFromSaved } from "../store/saved/SaveSlice";
+
 function Saved() {
+  const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
+  const pageVariants = {
+    initial: { scale: 0.2, opacity: 100 },
+    in: { scale: 1, opacity: 1, transition: { duration: 0.5, ...transition } },
+    out: {
+      scale: 0.2,
+      opacity: 0,
+      transition: { duration: 0.5, ...transition },
+    },
+  };
+
   const dispatch = useDispatch();
   const news = useSelector((state) => state.saved.saved);
   const handleUnsave = (title) => {
@@ -45,12 +56,8 @@ function Saved() {
       if (data.length !== 0) {
         return news.map((item) => (
           <Card
+            value={item}
             saveClick={() => handleUnsave(item.title)}
-            title={item.title}
-            image={item.image}
-            source={item.source}
-            desc={item.desc}
-            detail={item.detail}
             toggle={
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -73,18 +80,6 @@ function Saved() {
     }
   };
 
-  const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
-  const pageVariants = {
-    initial: { scale: 0.2, opacity: 100 },
-    in: { scale: 1, opacity: 1, transition: { duration: 0.5, ...transition } },
-    out: {
-      scale: 0.2,
-      opacity: 0,
-      transition: { duration: 0.5, ...transition },
-    },
-  };
-
-  console.log("asa", news);
   return (
     <>
       <motion.div
