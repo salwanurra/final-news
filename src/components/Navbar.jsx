@@ -33,7 +33,7 @@ function Navbar() {
         <div className="hidden md:block">
         
           <NavLink
-            exact={true}
+            exact="true"
             to={"/"}
             className={
               path === "/" 
@@ -103,7 +103,7 @@ function Navbar() {
             </svg>
           </button>
         <NavLink
-          exact={true}
+          exact="true"
           to={"/"}
           className={
             path === "/" 
