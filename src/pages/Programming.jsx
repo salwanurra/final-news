@@ -12,6 +12,7 @@ import {
 import { addNews, checkData, deleteNews } from "../store/saved/SaveSlice";
 
 import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
 
 function Programming() {
   const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
@@ -124,14 +125,6 @@ function Programming() {
     return prop;
   };
 
-  const onError = (
-    <div className="mt-32 text-2xl text-center">
-      {" "}
-      404! Money Not Found <br /> Server down or Request limit reached (100 / 24
-      hour)
-    </div>
-  );
-
   const listNews = () => {
     return news?.articles?.map((item, index) => (
       <div key={index}>
@@ -184,7 +177,7 @@ function Programming() {
           {search} {title}News
         </h1>
         {loading && <Loading />}
-        {(!loading, isError && onError)}
+        {(!loading, isError && <ErrorMessage />)}
         <hr className="mb-5 border-grey" />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 mx-auto">
           {listNews()}
