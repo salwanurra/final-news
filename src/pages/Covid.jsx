@@ -126,13 +126,6 @@ function Covid() {
     </div>
   );
 
-  const onLoading = (
-    <div className="mt-32  justify-center flex items-center">
-      {" "}
-      <Loading />{" "}
-    </div>
-  );
-
   const listNews = () => {
     return news?.articles?.map((item, index) => (
       <div key={index}>
@@ -177,7 +170,7 @@ function Covid() {
         variants={pageVariants}
       >
         <h1 className="text-center mt-5 font-bold text-lg">{title}News</h1>
-        {loading && onLoading}
+        {loading && <Loading />}
         {(!loading, isError && onError)}
         <hr className="mb-5 border-grey" />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 mx-auto">
