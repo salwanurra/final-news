@@ -38,7 +38,7 @@ function Programming() {
 
     dispatch(checkData(news));
     dispatch(addNews(news));
-    dispatch(deleteNews({ title: title }));
+    dispatch(deleteNews({ title: item.title }));
     setButtonState(
       "Cuman Buat Trigger Perubahan data di button supaya useEffect nya ketrigger"
     );
