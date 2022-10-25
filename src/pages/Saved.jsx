@@ -4,7 +4,7 @@ import { Empty } from "antd";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFromSaved } from "../store/saved/SaveSlice";
-
+import  Swal from "sweetalert2"
 function Saved() {
   const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
   const pageVariants = {
@@ -19,8 +19,28 @@ function Saved() {
 
   const dispatch = useDispatch();
   const news = useSelector((state) => state.saved.saved);
+  
   const handleUnsave = (title) => {
-    dispatch(deleteFromSaved({ title: title }));
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+      reverseButtons : true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          "",
+          'success',
+          dispatch(deleteFromSaved({ title: title }))
+        )
+      }
+    })
+ 
   };
 
   const checkdata = () => {
