@@ -121,9 +121,9 @@ function Indonesia() {
       let text = "";
       let twentyLetter = `${search.substring(0, 20)}...`;
       let tenLetter = `${search.substring(0, 10)}...`;
-      if (screenWidth >= "500" && search.length > 20) {
+      if (screenWidth >= 500 && search.length > 20) {
         return (text = `${twentyLetter}`);
-      } else if (screenWidth < "500" && search.length > 10) {
+      } else if (screenWidth < 500 && search.length > 10) {
         return (text = `${tenLetter}`);
       }else{
         return search
