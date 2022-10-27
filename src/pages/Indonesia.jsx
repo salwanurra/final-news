@@ -115,16 +115,15 @@ function Indonesia() {
     return prop;
   };
 
-  const screenWidth = React.useState(window.innerWidth);
+  const screenWidth = window.innerWidth
   const shortenSearchLength = (search) => {
     if (search) {
-      let text = "";
       let twentyLetter = `${search.substring(0, 20)}...`;
       let tenLetter = `${search.substring(0, 10)}...`;
-      if (screenWidth >= 500 && search.length > 20) {
-        return (text = `${twentyLetter}`);
-      } else if (screenWidth < 500 && search.length > 10) {
-        return (text = `${tenLetter}`);
+      if (screenWidth >= "500" && search.length > 20) {
+        return (search = `${twentyLetter}`);
+      } else if (screenWidth < "500" && search.length > 10) {
+        return (search = `${tenLetter}`);
       }else{
         return search
       }
