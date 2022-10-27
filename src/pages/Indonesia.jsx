@@ -31,7 +31,6 @@ function Indonesia() {
   let search = queryParams.get("search");
   const [title, setTitle] = useState("");
   const [buttonState, setButtonState] = useState("");
-  console.log("axa", totalResults)
   const handleSave = (item) => {
     let news = {
       title: item.title,
@@ -116,17 +115,30 @@ function Indonesia() {
     return prop;
   };
 
+  const screenWidth = React.useState(window.innerWidth);
+  const shortenSearchLength = (search) => {
+    if (search) {
+      let text = "";
+      let twentyLetter = `${search.substring(0, 20)}...`;
+      let tenLetter = `${search.substring(0, 10)}...`;
+      if (screenWidth >= "500" && search.length > 20) {
+        return (text = `${twentyLetter}`);
+      } else if (screenWidth < "500" && search.length > 10) {
+        return (text = `${tenLetter}`);
+      }else{
+        return search
+      }
+    }
+  };
+
   const listNews = () => {
- 
     return news?.articles?.map((item, index) => (
       <div key={index}>
         <Card
-            value={item}
-            toggle={dynamicButton(item.title)}
-            saveClick={() => handleSave(item)}
-          />
-
-          
+          value={item}
+          toggle={dynamicButton(item.title)}
+          saveClick={() => handleSave(item)}
+        />
       </div>
     ));
   };
@@ -155,19 +167,16 @@ function Indonesia() {
         variants={pageVariants}
       >
         <h1 className="text-center mt-5 font-bold text-lg">
-          {search} {title}News
+          {shortenSearchLength(search)}
+          {title} News
         </h1>
         {loading && <Loading />}
         {(!loading, isError && <ErrorMessage />)}
-        {search && totalResults === 0 && <SearchMessage/>} 
-       
+        {search && totalResults === 0 && <SearchMessage />}
+
         <hr className="mb-5 border-grey" />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 mx-auto">
           {listNews()}
-
-        
-    
-
         </div>
       </motion.div>
     </>
