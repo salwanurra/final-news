@@ -2,11 +2,16 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { getFindNews, getIndonesiaNews, newsSelector } from "../store/news/NewsSlice";
+import {
+  getFindNews,
+  getIndonesiaNews,
+  newsSelector,
+} from "../store/news/NewsSlice";
 import { addNews, checkData, deleteNews } from "../store/saved/SaveSlice";
 import Card from "../components/Card";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
+import SearchMessage from "../components/SearchMessage";
 
 function Indonesia() {
   const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
@@ -21,12 +26,12 @@ function Indonesia() {
   };
 
   const dispatch = useDispatch();
-  const { news, loading, isError } = useSelector(newsSelector);
+  const { news, loading, isError, totalResults } = useSelector(newsSelector);
   const queryParams = new URLSearchParams(window.location.search);
   let search = queryParams.get("search");
   const [title, setTitle] = useState("");
   const [buttonState, setButtonState] = useState("");
-
+  console.log("axa", totalResults)
   const handleSave = (item) => {
     let news = {
       title: item.title,
@@ -38,7 +43,7 @@ function Indonesia() {
 
     dispatch(checkData(news));
     dispatch(addNews(news));
-    dispatch(deleteNews({ title: item.title  }));
+    dispatch(deleteNews({ title: item.title }));
     setButtonState(
       "Cuman Buat Trigger Perubahan data di button supaya useEffect nya ketrigger"
     );
@@ -112,13 +117,16 @@ function Indonesia() {
   };
 
   const listNews = () => {
+ 
     return news?.articles?.map((item, index) => (
       <div key={index}>
         <Card
-          value={item}
-          toggle={dynamicButton(item.title)}
-          saveClick={() => handleSave(item)}
-        />
+            value={item}
+            toggle={dynamicButton(item.title)}
+            saveClick={() => handleSave(item)}
+          />
+
+          
       </div>
     ));
   };
@@ -151,9 +159,14 @@ function Indonesia() {
         </h1>
         {loading && <Loading />}
         {(!loading, isError && <ErrorMessage />)}
+        {totalResults === 0 && <SearchMessage/>}
         <hr className="mb-5 border-grey" />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 mx-auto">
           {listNews()}
+
+        
+    
+
         </div>
       </motion.div>
     </>

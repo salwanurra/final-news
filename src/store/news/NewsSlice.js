@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const getIndonesiaNews = createAsyncThunk("news/indonesia", async ()=> {
     try {
-        const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=id&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
+        const response = await axios.get(`https://newsapi.org/v2/top-headlines?country=id&apiKey=d0ebe5219b4a4f1097766a904d939e75`);
         console.log('getIndonesiaNews', response);
         return response.data;
     } catch (error) {
@@ -13,7 +13,7 @@ export const getIndonesiaNews = createAsyncThunk("news/indonesia", async ()=> {
 
 export const getProgrammingNews = createAsyncThunk("news/programming", async ()=> {
     try {
-        const response = await axios.get(`https://newsapi.org/v2/everything?q=programming&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
+        const response = await axios.get(`https://newsapi.org/v2/everything?q=programming&apiKey=d0ebe5219b4a4f1097766a904d939e75`);
         return response.data;
     } catch (error) {
         throw(error);
@@ -22,7 +22,7 @@ export const getProgrammingNews = createAsyncThunk("news/programming", async ()=
 
 export const getCovidNews = createAsyncThunk("news/covid", async ()=> {
     try {
-        const response = await axios.get(`https://newsapi.org/v2/everything?q=covid-19&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
+        const response = await axios.get(`https://newsapi.org/v2/everything?q=covid-19&apiKey=d0ebe5219b4a4f1097766a904d939e75`);
         console.log('getCovidNews', response);
         return response.data;
     } catch (error) {
@@ -32,7 +32,7 @@ export const getCovidNews = createAsyncThunk("news/covid", async ()=> {
 
 export const getFindNews = createAsyncThunk("news/find", async ({search})=> {
     try {
-        const response = await axios.get(`https://newsapi.org/v2/everything?qInTitle=${search}&apiKey=7a99daaa984d4c808ea16409ee08dbbf`);
+        const response = await axios.get(`https://newsapi.org/v2/everything?qInTitle=${search}&apiKey=d0ebe5219b4a4f1097766a904d939e75`);
         console.log('getFindNews', response)
         return response.data;
     } catch (error) {
@@ -106,6 +106,7 @@ const newsSlice = createSlice({
         [getFindNews.fulfilled]: (state, {payload}) => {
             state.loading = false;
             state.news = payload;
+            state.totalResults = payload.totalResults
             state.isError = null;
         },
         [getFindNews.rejected]: (state) => {
